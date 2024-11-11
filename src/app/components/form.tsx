@@ -1,8 +1,20 @@
-"use client"
+"use client";
 
 import React, { useState, useCallback } from "react";
-import { UserSchema } from '@/app/schemas/user.schema'
-import FormState from "../types/formState";
+import { UserSchema } from '@/app/schemas/user.schema';
+
+interface FormField {
+    value: string;
+    error: string;
+}
+
+interface FormState {
+    id: FormField;
+    firstName: FormField;
+    lestName: FormField;
+    birthDate: FormField;
+    email: FormField;
+}
 
 const Form = () => {
     const [formState, setFormState] = useState<FormState>({
@@ -55,62 +67,86 @@ const Form = () => {
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
+            alert('the data is get seccessfully!')
             console.log("Validated data:", formState);
+            
         }
     };
 
     return (
-        <div>
-            <h1>User Details</h1>
-            <form>
-                <h3>Personal Details</h3>
+        <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+            <h1 className="text-2xl font-bold mb-6 text-center">User Details</h1>
 
-                <input
-                    name="id"
-                    placeholder="Id"
-                    type="text"
-                    value={formState.id.value}
-                    onChange={handleChange}
-                />
-                {formState.id.error && <p>{formState.id.error}</p>}
+            <form onSubmit={SaveDetails} className="space-y-6">
+                {/* Personal Details */}
+                <h3 className="text-lg font-semibold">Personal Details</h3>
+                <div>
+                    <input
+                        name="id"
+                        placeholder="Id"
+                        type="text"
+                        value={formState.id.value}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    {formState.id.error && <p className="text-red-600 text-sm">{formState.id.error}</p>}
+                </div>
 
-                <input
-                    name="firstName"
-                    placeholder="First name"
-                    type="text"
-                    value={formState.firstName.value}
-                    onChange={handleChange}
-                />
-                {formState.firstName.error && <p>{formState.firstName.error}</p>}
+                <div>
+                    <input
+                        name="firstName"
+                        placeholder="First name"
+                        type="text"
+                        value={formState.firstName.value}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    {formState.firstName.error && <p className="text-red-600 text-sm">{formState.firstName.error}</p>}
+                </div>
 
-                <input
-                    name="lestName"
-                    placeholder="Last Name"
-                    type="text"
-                    value={formState.lestName.value}
-                    onChange={handleChange}
-                />
-                {formState.lestName.error && <p>{formState.lestName.error}</p>}
+                <div>
+                    <input
+                        name="lestName"
+                        placeholder="Last Name"
+                        type="text"
+                        value={formState.lestName.value}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    {formState.lestName.error && <p className="text-red-600 text-sm">{formState.lestName.error}</p>}
+                </div>
 
-                <input
-                    name="birthDate"
-                    type="date"
-                    value={formState.birthDate.value}
-                    onChange={handleChange}
-                />
-                {formState.birthDate.error && <p>{formState.birthDate.error}</p>}
+                <div>
+                    <input
+                        name="birthDate"
+                        type="date"
+                        value={formState.birthDate.value}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    {formState.birthDate.error && <p className="text-red-600 text-sm">{formState.birthDate.error}</p>}
+                </div>
 
-                <h3>Contact Details</h3>
-                <input
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    value={formState.email.value}
-                    onChange={handleChange}
-                />
-                {formState.email.error && <p>{formState.email.error}</p>}
+                {/* Contact Details */}
+                <h3 className="text-lg font-semibold">Contact Details</h3>
+                <div>
+                    <input
+                        name="email"
+                        placeholder="Email"
+                        type="text"
+                        value={formState.email.value}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                    {formState.email.error && <p className="text-red-600 text-sm">{formState.email.error}</p>}
+                </div>
 
-                <button type="submit" onClick={SaveDetails}>Save</button>
+                <button
+                    type="submit"
+                    className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                >
+                    Save
+                </button>
             </form>
         </div>
     );
